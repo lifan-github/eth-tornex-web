@@ -1,0 +1,108 @@
+export const lang = {
+    nav: {
+        aboutUs: '关于我们',
+        investment: '投资额',
+        contest: 'Contest',
+        withdraw: '缴纳保证金',
+        statistical: '钱包的统计'
+    },
+    home: {
+        // ===== module1
+        InvestTitle: '可靠的投资跟',
+        received: '收到',
+        deposit: '截止您的存款',
+        module1Tips1: '去中心化的区块链和匿名的平台',
+        module1Tips2: '完全安全的收入基于ETH智能合约',
+        module1Tips3: '智能合约由独立公司验证了和审计了',
+        withdrawBtn: '现在投资!',
+        contractAddress: '检查ETH智能合约',
+        // ===== module2
+        module2Title1: '我们会',
+        module2Title2: '双的',
+        module2Title3: '您的资金',
+        module2subTitle: '没有任何风险',
+
+        module2CardTitle1: '无限收益与始终不断增长的工资',
+        module2CardText: '我们提供增长百分比的投资条件。他们由基准利率，智能合约的总奖金和个人“保持奖金“。最高利润:',
+        module2CardText2: '+200%每笔存款',
+
+        module2CardTitle2: 'ETH-智能合约的可靠性.诈骗是不可能的。',
+        module2Card2Text: '智能合约的技术确保所有参与者资金的完全安全。没有人能窃取资金或者改变合同智能.',
+
+        module2CardTitle3: '有专业团队的全球法律公司',
+        module2Card3Text: '我们是正式注册的公司。我们有区块链市场上值得信赖的专业团队。我们24/7工作，以增加平台的名声，并且尊贤.',
+        module2Card3Text2: '加入我们并得到您的利润!',
+
+        // ===== module3
+        module3Total: '总投资金额(ETH):',
+        module3ActiveUser: '活动参与者的总数:',
+        company: '正式注册的公司:',
+        tel: '公司的电话号码:',
+        addr: '公司地址:',
+        certificate: '检查证书',
+        companyAddr: '检查公司的地址',
+
+        // ===== module4
+        module4Title: '投资条件',
+        module4Title1: '最好的',
+        module4Title2: '市场供需',
+        itemTitle: '基本利率:',
+        text1: '+1%每24小时（+0.0416% 每个小时）',
+        text2: 'TRONex智能合约计算每笔存款的利润',
+        text3: ',每天',
+        itemTitle2: '个人保持奖金:',
+        text4: '+0.1%每24小时无退款',
+        text5: '智能合约从您的存款或最后取款日期计算保留奖金。如果您没有要求付款，它将向您收取额外的奖金。24小时后',
+        text6: ',48小时后',
+        text7: ',72小时后',
+        text8: '等等',
+        itemTitle3: '合同总奖金:',
+        text9: '每1,000,000 ETH平台余额 +0.1％',
+        text10: '智能合约检查其当前余额，并为余额中的每1,000,000 ETH收取额外的',
+        text11: '+0.1％最高至您的收入.',
+        text12: '合约总额奖金: +0.0%',
+        itemTitle4: '当前平台余额(ETH):',
+        text13: '工作与TRON (ETH)网络',
+        text14: '最低存款: 100 ETH',
+        text15: '总收入: 200% (存款包括)',
+        text16: '盈利每一刻,随时提款',
+
+        // ==== module5
+        module5Title1: '正当和透明的智能对比',
+        module5Title2: '独立的',
+        module5Title3: '听音和评论',
+        info: 'TRONex平台智能合约在ETH区块链上发表.没有人可以改变规则或算法，甚至管理。这提供我们的参与者在他们的资金安全无条件的信心.任何人都可以检查智能合约代码，并吃准TRONex平台是诚实的.',
+        code: '智能合约的代码:',
+        comments: '评论和提及:',
+        lastDeposit: '最后的存款',
+        independentCompany: '独立的公司',
+        auditionStatus: '听音的状态',
+        successPassed: '成功得通过',
+        conclusion: '查账的结论',
+        website: '网站:',
+
+        // ===== module6
+        contactUs: '和我们联系',
+        support: '我们的支援服务',
+        may: '可能的',
+        contacts: '官方的联系方式:',
+        groups: '社会团体:',
+        help: '帮助',
+        advertising: '广告经理',
+        email: 'E-mail: admin@tronex.net',
+        engGroups: 'Telegram ENG 团体',
+        newsChannel: 'Telegram 新闻频道',
+        twitterUser: 'Twitter 用户简介',
+        instagramUser: 'Instagram 用户简介',
+        youtube: 'YouTube 频道',
+        discord: 'Discord 服务器',
+    },
+    footer: {
+        copyright: '著作权',
+        platform: '区块链投资平台',
+        ownership: '2020@保留所有权',
+        contractAddr: '智能合约地址',
+        userFrom: '作品来自',
+        blockchain: 'ETH 区块链'
+    },
+};
