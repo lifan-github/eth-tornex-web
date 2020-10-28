@@ -59,7 +59,7 @@
             <div class="total-tron">{{$t('lang.home.itemTitle4')}}</div>
             <div class="totalsumnum row">
               <div><i style="font-size: 30px;" class="iconfont icon-shengchanliangtongji"></i></div>
-              <div style="flex: 1; text-align: center">0</div>
+              <div style="flex: 1; text-align: center">{{contractTotal}}</div>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
           <div class="m-total-tron">当前平台余额(TRX):</div>
           <div class="m-totalsumnum row">
             <div><i style="font-size: 20px;" class="iconfont icon-shengchanliangtongji"></i></div>
-            <div style="flex: 1; text-align: center">0</div>
+            <div style="flex: 1; text-align: center">{{contractTotal}}</div>
           </div>
         </div>
 
@@ -137,6 +137,12 @@ import {checkPlatform} from "@/utils/fun";
 
 export default {
   name: "ScreenModule4",
+  props: {
+    contractTotal: {
+      type: String,
+      default: '0'
+    },
+  },
   data() {
     return {
       platform: 'PC',

@@ -21,9 +21,9 @@
       <!-- 模块二  -->
       <ScreenModule2/>
       <!-- 模块三  -->
-      <ScreenModule3 :contractTotal="contractBalance" :activeParticipant="totalUsers"/>
+      <ScreenModule3 :contractTotal="totalInvested" :activeParticipant="totalUsers"/>
       <!-- 模块四  -->
-      <ScreenModule4/>
+      <ScreenModule4 :contractTotal="contractBalance"/>
       <!-- 模块五 -->
       <ScreenModule5
           :data="userAddr"
@@ -43,36 +43,36 @@
           title="钱包的统计信息"
           :visible.sync="dialogVisible"
           width="50%">
-          <div>
-            <div class="wallet-static-box">
-              <span>用户的利率：</span> <span>{{userPercentRate}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>用户分红：</span> <span>{{userDividends}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>用户检查点：</span> <span>{{userCheckpoint}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>推荐人：</span> <span>{{userReferrer}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>用户推荐奖金：</span> <span>{{userReferralBonus}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>用户的可用奖励：</span> <span>{{userAvailable}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>用户的充值次数：</span> <span>{{userAmountOfDeposits}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>获取用户的充值总额：</span> <span>{{userTotalDeposits}}</span>
-            </div>
-            <div class="wallet-static-box">
-              <span>获取用户的取现总额：</span> <span>{{userTotalWithdrawn}}</span>
-            </div>
+        <div>
+          <div class="wallet-static-box">
+            <span>用户的利率：</span> <span>{{ userPercentRate }}</span>
           </div>
-          <span slot="footer" class="dialog-footer">
+          <div class="wallet-static-box">
+            <span>用户分红：</span> <span>{{ userDividends }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>用户检查点：</span> <span>{{ userCheckpoint }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>推荐人：</span> <span>{{ userReferrer }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>用户推荐奖金：</span> <span>{{ userReferralBonus }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>用户的可用奖励：</span> <span>{{ userAvailable }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>用户的充值次数：</span> <span>{{ userAmountOfDeposits }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>获取用户的充值总额：</span> <span>{{ userTotalDeposits }}</span>
+          </div>
+          <div class="wallet-static-box">
+            <span>获取用户的取现总额：</span> <span>{{ userTotalWithdrawn }}</span>
+          </div>
+        </div>
+        <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
           </span>
@@ -121,7 +121,8 @@ export default {
       accounts: [], // metamask 账户列表
       to: '0x81b7E08F65Bdf5648606c89998A9CC8164397647',
 
-      contractBalance: '0',     // 合约总投资金额统计
+      contractBalance: '0',     // 平台总额
+      totalInvested: '0',       // 总投资金额
       totalUsers: '0',          // 活动参与者的总数
       userPercentRate: '0',     // 用户的利率
       userDividends: '0',        // 用户分红
@@ -133,7 +134,7 @@ export default {
       userTotalDeposits: '0',   // 获取用户的充值总额
       userTotalWithdrawn: '0',  // 获取用户的取现总额
 
-      dialogVisible: true,
+      dialogVisible: false,
     }
   },
   created() {
@@ -167,12 +168,27 @@ export default {
       if (typeof window.ethereum !== 'undefined') {
         this.setWeb3Network();
         // 获取合约的基本信息
+        this.getTotalInvested();
         this.contractStatic();
         // 获取活动参与者的总数
         this.getTotalUsers();
       }
     },
-    // 获取合约的统计
+    // 总投资金额
+    getTotalInvested() {
+      this.TokenContract.methods.totalInvested().call()
+          .then(res => {
+            console.log(res, 'res--总投资金额--');
+            this.totalInvested = res;
+          }).catch(err => {
+        console.log(err, 'err-总投资金额---');
+        this.$message({
+          type: 'warning',
+          message: '获取总投资金额失败！'
+        });
+      })
+    },
+    // 获取平台总数
     contractStatic() {
       this.TokenContract.methods.getContractBalance().call()
           .then(res => {
@@ -182,7 +198,7 @@ export default {
         console.log(err, 'err----');
         this.$message({
           type: 'warning',
-          message: '获取总投资金额失败！'
+          message: '获取平台总额失败！'
         });
       })
     },
@@ -310,12 +326,24 @@ export default {
     },
     // 您的钱包统计信息
     getUserWalletStatic() {
-      console.log(this.TokenContract.methods, 'this.TokenContract.methods')
+      const that = this;
       if (!this.userAddr) {
-        this.$message({
-          type: 'warning',
-          message: '请链接好您的钱包！'
-        })
+        this.$alert('请链接好您的钱包', '提示', {
+          confirmButtonText: '确定',
+          callback: action => {
+            if (action === 'confirm') {
+              window.ethereum.request({method: 'eth_requestAccounts'})
+                  .then(res => {
+                    this.userAddr = res[0];
+                  }).catch(() => {
+                    that.$message({
+                      type: 'warning',
+                      message: '获取账户信息失败！'
+                    });
+              })
+            }
+          }
+        });
       } else {
         this.getUserPercentRate();
         this.getUserDividends();
@@ -359,7 +387,7 @@ export default {
       this.TokenContract.methods.getUserCheckpoint(userAddr).call()
           .then(res => {
             console.log(res, 'res--获取用户检查点--');
-            this.userCheckpoint = formatDate(new Date(res*1000), 'yyyy-MM-dd HH:mm:ss');
+            this.userCheckpoint = formatDate(new Date(res * 1000), 'yyyy-MM-dd HH:mm:ss');
           })
           .catch(err => {
             console.log(err, 'err--获取用户检查点--');
@@ -456,6 +484,7 @@ export default {
   position: fixed;
   left: 0;
   top: 150px;
+  z-index: 1000;
 }
 
 .lang-item {
